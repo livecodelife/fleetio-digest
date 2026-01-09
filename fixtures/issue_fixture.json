@@ -1,0 +1,173 @@
+{
+    "id": 27720,
+    "number": "#1",
+    "name": "Dead battery",
+    "summary": "Dead battery",
+    "description": "Had to jump-start the truck",
+    "state": "Open",
+    "reported_at": "2025-12-08T16:22:56.000-06:00",
+    "reported_by_id": null,
+    "reported_by_name": null,
+    "fault_id": null,
+    "due_date": null,
+    "due_meter_value": null,
+    "due_secondary_meter_value": null,
+    "vehicle_id": 44474,
+    "vehicle_name": "AC101",
+    "images_count": 1,
+    "documents_count": 0,
+    "comments_count": 1,
+    "is_sample": false,
+    "created_by_workflow": null,
+    "submitted_inspection_form_id": null,
+    "custom_fields": {},
+    "valid_required_custom_fields": true,
+    "dtc_alert_id": null,
+    "meter_entry": {
+        "id": 227922512,
+        "auto_voided_at": null,
+        "category": null,
+        "date": "2025-12-08",
+        "meter_type": null,
+        "meterable_id": 27720,
+        "meterable_type": "Issue",
+        "value": "85740.0",
+        "vehicle_id": 44474,
+        "void": false,
+        "type": null,
+        "created_at": "2025-04-22T12:09:17.337-05:00",
+        "updated_at": "2026-01-09T05:14:33.694-06:00"
+    },
+    "assigned_contacts": [
+        {
+            "id": 883826,
+            "name": "Kiara Robinson",
+            "first_name": "Kiara",
+            "middle_name": null,
+            "group_id": 9238,
+            "group_name": "Tallahassee",
+            "last_name": "Robinson",
+            "images_count": 1,
+            "documents_count": 0,
+            "comments_count": 0,
+            "group_hierarchy": "Florida|Tallahassee",
+            "email": null,
+            "technician": true,
+            "vehicle_operator": false,
+            "employee": false,
+            "birth_date": null,
+            "city": null,
+            "country": null,
+            "employee_number": "#T107",
+            "home_phone_number": null,
+            "job_title": "Technician",
+            "leave_date": null,
+            "license_class": null,
+            "license_number": null,
+            "license_state": null,
+            "license_expiration": null,
+            "mobile_phone_number": "850-515-0001",
+            "other_phone_number": null,
+            "postal_code": null,
+            "region": null,
+            "start_date": "2024-04-24",
+            "street_address": null,
+            "street_address_line_2": null,
+            "work_phone_number": null,
+            "hourly_labor_rate": 50.0,
+            "custom_fields": {},
+            "attachment_permissions": {},
+            "default_image_url": "https://d8g9nhlfs6lwh.cloudfront.net/8ezaYsMQzVepbxeDoAJW?signature=d071c27c41955b67a3a8960febe1c5d877780f74ebefa3077e59640da5b6886b&policy=eyJoYW5kbGUiOiI4ZXphWXNNUXpWZXBieGVEb0FKVyIsImV4cGlyeSI6NDUzNDk0OTM0MywiY2FsbCI6WyJyZWFkIl19",
+            "account_membership_id": 373784,
+            "user": {
+                "id": 177060,
+                "email": null,
+                "username": "descartes",
+                "time_zone": "America/Detroit",
+                "user_type": "regular",
+                "role": {
+                    "id": 304725,
+                    "name": "Technician"
+                },
+                "vehicles_record_set": {
+                    "id": 900632,
+                    "name": "Full Access"
+                },
+                "equipments_record_set": {
+                    "id": 900638,
+                    "name": "Full Access"
+                },
+                "contacts_record_set": {
+                    "id": 900635,
+                    "name": "Full Access"
+                },
+                "parts_record_set": {
+                    "id": 900641,
+                    "name": "Full Access"
+                },
+                "inspection_forms_record_set": {
+                    "id": 900643,
+                    "name": "Full Access"
+                }
+            },
+            "created_at": "2025-04-22T12:07:33.445-05:00",
+            "updated_at": "2025-04-22T12:07:37.008-05:00"
+        }
+    ],
+    "labels": [],
+    "comments": [
+        {
+            "id": 9023916,
+            "title": "Need New Battery",
+            "comment": "Scheduling for service this week. Battery is starting to look corroded.",
+            "commentable_type": "Issue",
+            "commentable_id": 27720,
+            "user_id": 433566,
+            "html_content": null,
+            "user_full_name": "Sara Ciskie",
+            "user_image_url": null,
+            "rich_content": null,
+            "with_mentions": false,
+            "created_at": "2025-12-08T16:22:56.000-06:00",
+            "updated_at": "2026-01-09T05:15:24.740-06:00"
+        }
+    ],
+    "created_at": "2025-03-21T17:22:56.000-05:00",
+    "updated_at": "2026-01-09T05:15:24.091-06:00",
+    "overdue": false,
+    "attachment_permissions": {},
+    "documents": [],
+    "images": [
+        {
+            "id": 19220644,
+            "name": null,
+            "description": null,
+            "imageable_id": 27720,
+            "imageable_type": "Issue",
+            "file_name": "unnamed_file",
+            "file_mime_type": "image/jpeg",
+            "file_size": 105365,
+            "created_at": "2025-04-22T12:09:18.264-05:00",
+            "updated_at": "2025-04-22T12:09:18.264-05:00",
+            "file_url": "https://d8g9nhlfs6lwh.cloudfront.net/1y6ROqPFRM20Pv2XS9Zg?signature=ab1484b102fb627560a75d948e78b8c23588be60d7ca00bc1c122a11de49d384&policy=eyJoYW5kbGUiOiIxeTZST3FQRlJNMjBQdjJYUzlaZyIsImV4cGlyeSI6NDUzNDk0OTM0MywiY2FsbCI6WyJyZWFkIl19",
+            "full_url": "https://d8g9nhlfs6lwh.cloudfront.net/security=policy:eyJoYW5kbGUiOiIxeTZST3FQRlJNMjBQdjJYUzlaZyIsImV4cGlyeSI6NDUzNDk0OTM0MywiY2FsbCI6WyJyZWFkIiwiY29udmVydCJdfQ==,signature:7e8b6987ebb04692a63f7531b8fa77f0c724cb2a2e880e72fe78d48c8c40ca36/cache=expiry:max/rotate=exif:true/1y6ROqPFRM20Pv2XS9Zg"
+        }
+    ],
+    "is_watched": false,
+    "vehicle_image_url": "https://d8g9nhlfs6lwh.cloudfront.net/Zg9PXRBsSJyfPLlHomBz?signature=6802b559261ad1dd51c86b724431fff5fe176231783482187667ec3057260845&policy=eyJoYW5kbGUiOiJaZzlQWFJCc1NKeWZQTGxIb21CeiIsImV4cGlyeSI6NDUzNDk0OTM0MywiY2FsbCI6WyJyZWFkIl19",
+    "vehicle_image_url_medium": "https://d8g9nhlfs6lwh.cloudfront.net/security=policy:eyJoYW5kbGUiOiJaZzlQWFJCc1NKeWZQTGxIb21CeiIsImV4cGlyeSI6NDUzNDk0OTM0MywiY2FsbCI6WyJyZWFkIiwiY29udmVydCJdfQ==,signature:744a0b86429e26c80c31d548687046d1640da10842949a05a3cdf0f72d7945a9/resize=w:100,h:100,fit:crop/cache=expiry:max/rotate=exif:true/Zg9PXRBsSJyfPLlHomBz",
+    "vehicle_image_url_small": "https://d8g9nhlfs6lwh.cloudfront.net/security=policy:eyJoYW5kbGUiOiJaZzlQWFJCc1NKeWZQTGxIb21CeiIsImV4cGlyeSI6NDUzNDk0OTM0MywiY2FsbCI6WyJyZWFkIiwiY29udmVydCJdfQ==,signature:744a0b86429e26c80c31d548687046d1640da10842949a05a3cdf0f72d7945a9/resize=w:45,h:45,fit:crop/cache=expiry:max/rotate=exif:true/Zg9PXRBsSJyfPLlHomBz",
+    "vehicle_image_url_large": "https://d8g9nhlfs6lwh.cloudfront.net/security=policy:eyJoYW5kbGUiOiJaZzlQWFJCc1NKeWZQTGxIb21CeiIsImV4cGlyeSI6NDUzNDk0OTM0MywiY2FsbCI6WyJyZWFkIiwiY29udmVydCJdfQ==,signature:744a0b86429e26c80c31d548687046d1640da10842949a05a3cdf0f72d7945a9/resize=w:450,fit:scale/cache=expiry:max/rotate=exif:true/Zg9PXRBsSJyfPLlHomBz",
+    "watchers_count": 0,
+    "linked_work_orders": null,
+    "source": {
+        "inspection_form": {
+            "id": null,
+            "color": null,
+            "title": null
+        },
+        "inspection_submissions_count": 0,
+        "last_inspection_submission_at": null,
+        "failed_inspection_item_label": null
+    }
+}
