@@ -45,6 +45,7 @@ module Digest
       {
         vehicles: @vehicles.count,
         issues: @issues.count,
+        open_issues: @issues.count { |i| i[:state]&.downcase != 'resolved' },
         overdue_issues: @issues.count { |i| i[:is_overdue] },
         resolved_issues: @issues.count { |i| i[:state]&.downcase == 'resolved' },
         service_reminders: @service_reminders.count

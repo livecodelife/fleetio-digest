@@ -16,6 +16,8 @@ require 'normalizers/issue_normalizer'
 require 'normalizers/service_reminder_normalizer'
 require 'digest/composer'
 require 'digest/serializer'
+require 'llm/client'
+require 'llm/prompt_builder'
 
 # Validate environment variables
 def validate_environment!
@@ -23,6 +25,8 @@ def validate_environment!
     FLEETIO_API_KEY
     FLEETIO_ACCOUNT_TOKEN
     FLEETIO_BASE_URL
+    LM_STUDIO_BASE_URL
+    LM_STUDIO_MODEL
   ]
 
   missing_vars = required_vars.select { |var| ENV[var].nil? || ENV[var].empty? }
@@ -140,13 +144,31 @@ def main
   serialized_output = serializer.serialize
   puts "✅ Digest serialized"
 
-  # Step 12: Display Digest
+  # Step 12: Generate Summary
+  puts "\n🤖 Step 12: Generating LLM Summary..."
+
+  prompt = LLM::PromptBuilder.build(serialized_output)
+
+  llm_client = LLM::Client.new(
+    base_url: ARGV[1] || ENV['LM_STUDIO_BASE_URL'],
+    model: ARGV[0] || ENV['LM_STUDIO_MODEL']
+  )
+
+  summary = llm_client.complete(prompt)
+  puts "✅ Summary generated"
+
+  # Step 13: Display Results
   puts "\n" + "=" * 80
-  puts "SERIALIZED DIGEST OUTPUT"
+  puts "FLEET WEEKLY DIGEST"
+  puts "This week you have:"
+  puts "- #{digest[:totals][:open_issues]} open issues"
+  puts "- #{digest[:totals][:overdue_issues]} overdue issues"
+  puts "- #{digest[:totals][:resolved_issues]} resolved issues"
+  puts "- #{digest[:totals][:service_reminders]} service reminders"
   puts "=" * 80
-  puts serialized_output
+  puts summary
   puts "=" * 80
-  puts "\n✨ Data fetching, composition, and serialization complete!"
+  puts "\n✨ Pipeline complete!"
 
 rescue Fleetio::Client::Error => e
   puts "\n❌ Fleetio API Error: #{e.message}"
