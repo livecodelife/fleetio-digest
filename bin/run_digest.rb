@@ -154,7 +154,6 @@ def main
     model: ARGV[0] || ENV['LM_STUDIO_MODEL']
   )
 
-  summary = llm_client.complete(prompt)
   puts "✅ Summary generated"
 
   # Step 13: Display Results
@@ -166,9 +165,17 @@ def main
   puts "- #{digest[:totals][:resolved_issues]} resolved issues"
   puts "- #{digest[:totals][:service_reminders]} service reminders"
   puts "=" * 80
-  puts summary
+  llm_client.complete(prompt)
   puts "=" * 80
-  puts "\n✨ Pipeline complete!"
+  print "\n Do you have any questions? > "
+
+  prompt = gets.chomp
+
+  while prompt != "exit"
+    llm_client.complete(prompt)
+    print "\n Do you have any other questions? > "
+    prompt = gets.chomp
+  end
 
 rescue Fleetio::Client::Error => e
   puts "\n❌ Fleetio API Error: #{e.message}"
