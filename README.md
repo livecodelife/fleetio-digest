@@ -27,13 +27,14 @@ The pipeline follows a distinct four-phase sequential execution model:
 *   **Responsibility:** Assembles a structured "Digest" object.
 *   **Strategy:** Groups issues and service reminders by vehicle, calculates totals, and defines the report period.
 
-### 4. Summarization
+### 4. Summarization & Interaction
 *   **Location:** `lib/llm/`
-*   **Responsibility:** interfaces with a local LLM via LM Studio.
+*   **Responsibility:** Interfaces with a local LLM via LM Studio.
 *   **Process:**
-    1.  **Serialization:** The digest object is converted into a human-readable text format (see `lib/digest/serializer.rb`).
-    2.  **Prompt Building:** A structured prompt is constructed to guide the LLM.
-    3.  **Completion:** The prompt is sent to an OpenAI-compatible endpoint.
+    1.  **Serialization:** The digest object is converted into a structured text format (see `lib/digest/serializer.rb`).
+    2.  **Prompt Building:** A structured prompt is constructed to provide context to the LLM.
+    3.  **Completion & Streaming:** The prompt is sent to an OpenAI-compatible endpoint with streaming enabled.
+    4.  **Interactive Chat:** After the initial summary, the tool enters an interactive loop, allowing you to ask follow-up questions about the fleet data (e.g., "Which truck should I prioritize?", "What is the total count of overdue issues?").
 
 ---
 
@@ -48,6 +49,8 @@ By utilizing **LM Studio**, the pipeline maintains data privacy and avoids exter
 ### Determinism and Reliability
 *   **Retries:** The Fleetio client includes automatic retries for flaky network connections.
 *   **Fail Fast:** The system validates environment variables on boot and crashes immediately if any are missing.
+*   **Streaming & Reasoning:** The LLM client supports streaming responses and can display model reasoning deltas (if supported by the model) to provide transparency into the AI's thought process.
+*   **Session State:** The interactive chat maintains a prompt history and uses response IDs to provide a continuous, context-aware conversation experience.
 *   **Text over JSON:** We serialize the digest into structured text before sending it to the LLM. Experience shows that LLMs summarize structured text more reliably than raw, deeply nested JSON objects.
 
 ---
@@ -70,7 +73,12 @@ Copy the example environment file and fill in your credentials:
 ```bash
 cp .env.example .env
 ```
-Edit `.env` with your `FLEETIO_API_KEY`, `FLEETIO_ACCOUNT_TOKEN`, etc.
+Edit `.env` with the following:
+*   `FLEETIO_API_KEY`: Your Fleetio API Key.
+*   `FLEETIO_ACCOUNT_TOKEN`: Your Fleetio Account Token.
+*   `FLEETIO_BASE_URL`: Usually `https://api.fleetio.com/api/v1`.
+*   `LM_STUDIO_BASE_URL`: Base URL for LM Studio (e.g., `http://localhost:1234`).
+*   `LM_STUDIO_MODEL`: The ID of the model loaded in LM Studio.
 
 ### 3. Running the Pipeline
 Simply execute the orchestration script:
@@ -78,10 +86,16 @@ Simply execute the orchestration script:
 ruby bin/run_digest.rb
 ```
 
-You can optionally override the model or base URL:
+You can optionally override the model or base URL via command line arguments:
 ```bash
 ruby bin/run_digest.rb <model_name> <base_url>
 ```
+
+### 💬 Interactive Mode
+Once the summary is generated, you can continue the conversation with the assistant:
+*   Ask for specific vehicle details.
+*   Request prioritization advice.
+*   Type `exit` to end the session.
 
 ---
 
