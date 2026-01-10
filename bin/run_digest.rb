@@ -147,12 +147,13 @@ def main
   # Step 12: Generate Summary
   puts "\n🤖 Step 12: Generating LLM Summary..."
 
-  prompt = LLM::PromptBuilder.build(serialized_output)
+  prompt = LLM::PromptBuilder.build(digest)
 
   llm_client = LLM::Client.new(
     base_url: ARGV[1] || ENV['LM_STUDIO_BASE_URL'],
     model: ARGV[0] || ENV['LM_STUDIO_MODEL']
   )
+  ARGV.clear
 
   puts "✅ Summary generated"
 
