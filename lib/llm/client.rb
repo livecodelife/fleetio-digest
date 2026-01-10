@@ -12,21 +12,25 @@ module LLM
       @base_url = base_url
       @model = model
       @connection = setup_connection
+      @prev_response_id = nil
+      @prompt_history = []
     end
 
     def complete(prompt)
-      response = @connection.post('/v1/responses') do |req|
+      @prompt_history << {role: "user", content: prompt}
+      @connection.post('/v1/responses') do |req|
         req.headers['Content-Type'] = 'application/json'
         req.body = {
           model: @model,
-          instructions: "You are a fleet operations assistant.",
-          input: prompt
+          instructions: "You are a fleet operations assistant. Your job is to help recommend actions to improve fleet operations and management.",
+          input: @prompt_history,
+          stream: true,
+          previous_response_id: @prev_response_id,
+          reasoning: {effort: "medium"}
         }.to_json
-      end
 
-      handle_response(response)
-    rescue Faraday::Error => e
-      raise Error, "LLM Request failed: #{e.message}"
+        @prompt_history << {role: "assistant", content: handle_response(req)}
+      end
     end
 
     private
@@ -39,22 +43,53 @@ module LLM
       end
     end
 
-    def handle_response(response)
-      unless response.success?
-        raise Error, "LLM API Error: #{response.status} - #{response.body}"
-      end
+    def handle_response(req)
+      response_text = ""
+      cleared = false
+      req.options.on_data = Proc.new do |chunk, overall_received_bytes|
+        # SSE events begin with "data: "
+        lines = chunk.split("\n")
+        lines.each do |line|
+          next if line.strip.empty?
 
-      body = JSON.parse(response.body)
-      output = body.dig("output")
-      content = output.find { |o| o["status"] == "completed" }.dig("content", 0, "text")
-      
-      unless content
-        raise Error, "Invalid LLM response format: missing output/content/text"
-      end
+          if line.start_with?("data: ")
+            json_str = line.sub("data: ", "").strip
 
-      content
-    rescue JSON::ParserError
-      raise Error, "Invalid JSON response from LLM"
+            begin
+              event = JSON.parse(json_str)
+              if event["type"] == "response.in_progress"
+                puts "Please wait..."
+              end
+
+              if event["type"] == "response.completed"
+                @prev_response_id = event["response"]["id"]
+              end
+
+              if event["type"] == "response.reasoning_text.delta"
+                print event["delta"]
+              end
+
+              if event["type"] == "response.reasoning_text.done"
+                count = event["text"].split("\n").size * 2
+
+                count.times do
+                  print "\e[1A\e[2K"
+                end
+                print "\r"
+              end
+
+              if event["type"] == "response.output_text.delta"
+                response_text += event["delta"]
+                print event["delta"]
+                STDOUT.flush
+              end
+            rescue JSON::ParserError
+              # ignore parse errors (e.g., partial JSON)
+            end
+          end
+        end
+      end
+      response_text
     end
   end
 end

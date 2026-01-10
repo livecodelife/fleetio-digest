@@ -17,6 +17,8 @@ module LLM
 
         Do not invent information. Base your summary only on the provided data.
 
+        Do not give a preamble or any additional information. Just provide recommendations with a reasoning about your recommendations.
+
         ---
 
         #{digest_text}
